@@ -1,26 +1,251 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-cream: #fcf2d9;
+  --color-ink: #202916;
+  --color-forest: #141d10;
+  --color-footer: #101609;
+  --color-orange: #f06a1d;
+  --color-teal: #08acc3;
+  --color-gold: #d1af71;
+  --color-whatsapp: #25d366;
+
+  --font-display: var(--font-bebas), sans-serif;
+  --font-sans: var(--font-montserrat), system-ui, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@keyframes tick {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes dropDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes gSlideA {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@keyframes gShiftR {
+  0%,
+  88%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  89% {
+    transform: translate3d(-9px, -3px, 0);
+    opacity: 0.9;
+  }
+  91% {
+    transform: translate3d(7px, 2px, 0);
+    opacity: 0.75;
+  }
+  93% {
+    transform: translate3d(-4px, 3px, 0);
+    opacity: 0.85;
+  }
+  95% {
+    transform: translate3d(5px, -2px, 0);
+    opacity: 0.6;
+  }
+}
+@keyframes gShiftC {
+  0%,
+  86%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  87% {
+    transform: translate3d(8px, 3px, 0);
+    opacity: 0.85;
+  }
+  90% {
+    transform: translate3d(-6px, -2px, 0);
+    opacity: 0.7;
+  }
+  94% {
+    transform: translate3d(4px, -3px, 0);
+    opacity: 0.8;
+  }
+  96% {
+    transform: translate3d(-5px, 2px, 0);
+    opacity: 0.55;
+  }
+}
+@keyframes gSlice {
+  0%,
+  84%,
+  100% {
+    clip-path: inset(0 0 100% 0);
+  }
+  85% {
+    clip-path: inset(14% 0 62% 0);
+  }
+  88% {
+    clip-path: inset(48% 0 34% 0);
+  }
+  91% {
+    clip-path: inset(6% 0 80% 0);
+  }
+  94% {
+    clip-path: inset(66% 0 12% 0);
+  }
+  97% {
+    clip-path: inset(30% 0 55% 0);
+  }
+}
+@keyframes gJitter {
+  0%,
+  85%,
+  100% {
+    transform: translate3d(0, 0, 0) skewX(0);
+  }
+  86% {
+    transform: translate3d(-3px, 0, 0) skewX(-7deg);
+  }
+  88% {
+    transform: translate3d(3px, 0, 0) skewX(5deg);
+  }
+  90% {
+    transform: translate3d(-2px, 0, 0) skewX(-3deg);
+  }
+  92% {
+    transform: translate3d(2px, 0, 0) skewX(4deg);
+  }
+}
+@keyframes gBolt {
+  0%,
+  82%,
+  100% {
+    opacity: 0;
+  }
+  84% {
+    opacity: 0.9;
+  }
+  86% {
+    opacity: 0.15;
+  }
+  88% {
+    opacity: 0.7;
+  }
+  90% {
+    opacity: 0;
   }
 }
 
+@keyframes csWave {
+  0%, 60%, 100% { transform: translateY(0); opacity: 1; }
+  30% { transform: translateY(-6px); opacity: 0.75; }
+}
+@keyframes csDot {
+  0%, 20% { opacity: 0; }
+  40%, 100% { opacity: 1; }
+}
+@keyframes csLine {
+  0% { transform: scaleX(0); transform-origin: left; }
+  45% { transform: scaleX(1); transform-origin: left; }
+  55% { transform: scaleX(1); transform-origin: right; }
+  100% { transform: scaleX(0); transform-origin: right; }
+}
+@keyframes pzStrip {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes kenburns {
+  from { transform: scale(1.06); }
+  to { transform: scale(1); }
+}
+@keyframes heroZoom {
+  from { transform: scale(1.12); }
+  to { transform: scale(1); }
+}
+@keyframes riseInBig {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.8); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001s !important;
+    transition: none !important;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-weight: 400;
+}
+p {
+  margin: 0;
+}
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+img {
+  display: block;
+}
+::selection {
+  background: #f06a1d;
+  color: #141d10;
 }
