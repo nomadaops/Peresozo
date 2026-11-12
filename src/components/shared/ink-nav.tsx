@@ -98,21 +98,19 @@ export function InkNav({
           aria-label="Principal"
           className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-[clamp(6px,1.4vw,22px)] whitespace-nowrap text-[10.5px] font-semibold tracking-[.18em] uppercase min-[1200px]:flex"
         >
-          {NAV_LINKS.map((l) =>
-            l.label === active ? (
-              <span key={l.label} className="rounded bg-orange px-[clamp(12px,1.5vw,22px)] py-2.5 text-forest">
-                {l.label}
-              </span>
-            ) : (
+          {NAV_LINKS.map((l) => (
               <Link
                 key={l.label}
                 href={l.href}
-                className="rounded px-[clamp(12px,1.5vw,22px)] py-2.5 text-cream/85 transition-colors hover:bg-cream/14 hover:text-cream"
+                className={
+                  l.label === active
+                    ? "rounded bg-orange px-[clamp(12px,1.5vw,22px)] py-2.5 text-forest"
+                    : "rounded px-[clamp(12px,1.5vw,22px)] py-2.5 text-cream/85 transition-colors hover:bg-cream/14 hover:text-cream"
+                }
               >
                 {l.label}
               </Link>
-            )
-          )}
+            ))}
         </nav>
 
         <div className="ml-auto flex items-center gap-[clamp(12px,1.6vw,20px)]">{right}</div>

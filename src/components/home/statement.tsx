@@ -42,12 +42,12 @@ export function Statement() {
           <img
             src="/img/bamboo-rider.jpg"
             alt="Rider Perezoso en bambú con jersey técnico"
-            className="h-[609px] w-[590px] max-w-full object-cover [object-position:50%_28%] [filter:saturate(.95)]"
+            className="h-[clamp(400px,50vw,609px)] w-full object-cover [object-position:50%_28%] [filter:saturate(.95)]"
           />
-          <div className="absolute bottom-[94px] -left-6 bg-orange px-5 py-3 text-[12px] font-bold tracking-[.22em] text-forest uppercase">
+          <div className="absolute bottom-[94px] left-0 bg-orange px-5 py-3 text-[12px] font-bold tracking-[.22em] text-forest uppercase sm:-left-6">
             Del trail a la calle.
           </div>
-          <div className="absolute bottom-[52px] -left-6 bg-orange px-4 py-[9px] text-[10px] font-bold tracking-[.22em] text-forest uppercase">
+          <div className="absolute bottom-[52px] left-0 bg-orange px-4 py-[9px] text-[10px] font-bold tracking-[.22em] text-forest uppercase sm:-left-6">
             De la calle al trail.
           </div>
         </div>

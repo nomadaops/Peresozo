@@ -104,6 +104,7 @@ export function InscripcionesPage() {
       /* ignore */
     }
     setSent(true);
+    window.open("https://wa.me/50683127667?text=" + encodeURIComponent(waMsg), "_blank", "noopener");
   };
 
   const reset = () => {

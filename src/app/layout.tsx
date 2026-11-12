@@ -17,6 +17,7 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: "Perezoso — Ni lentos ni perezosos",
   description: "Marca deportiva 100% costarricense. Bikewear funcional con actitud streetwear.",
+  icons: { icon: "/favicon.ico" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

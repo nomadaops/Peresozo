@@ -16,7 +16,7 @@ export function Philosophy() {
           <br />
           ni perezosos<span className="text-orange">.</span>
         </h2>
-        <p className="mx-auto mt-[34px] max-w-[620px] text-[clamp(13px,1.05vw,15px)] leading-[1.85] font-semibold text-[#F8F8F8]">
+        <p className="mx-auto mt-[34px] max-w-[620px] text-center text-[clamp(13px,1.05vw,15px)] leading-[1.85] font-semibold text-[#F8F8F8]">
           Más que un símbolo, es una mentalidad: mantenernos activos, visualizando y analizando el próximo
           movimiento. Entendemos el límite como un nuevo reto, no como un final.
         </p>

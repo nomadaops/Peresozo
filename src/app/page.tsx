@@ -16,7 +16,7 @@ import { Footer } from "@/components/home/footer";
 import { MobileMenu } from "@/components/home/mobile-menu";
 import { CartDrawer } from "@/components/home/cart-drawer";
 import { OrderFormModal } from "@/components/home/order-form-modal";
-import { AdminLoginModal } from "@/components/home/admin-login-modal";
+
 import { Lightbox } from "@/components/home/lightbox";
 
 export default function HomePage() {
@@ -41,7 +41,7 @@ export default function HomePage() {
         <MobileMenu />
         <CartDrawer />
         <OrderFormModal />
-        <AdminLoginModal />
+
         <Lightbox />
       </div>
     </SiteProvider>

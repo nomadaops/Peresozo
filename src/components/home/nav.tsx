@@ -5,7 +5,7 @@ import { useSite } from "@/components/site-provider";
 import { EventosPill, NAV_LINKS } from "@/components/shared/ink-nav";
 
 export function Nav() {
-  const { scrolled, openCart, hasItems, count, openAdminLogin, toggleMenu } = useSite();
+  const { scrolled, openCart, hasItems, count, toggleMenu } = useSite();
 
   return (
     <header className="fixed inset-x-0 top-0 z-[60]">
@@ -65,18 +65,6 @@ export function Nav() {
                 {count}
               </span>
             )}
-          </button>
-          <span className="h-4 w-px bg-cream/20" />
-          <button
-            type="button"
-            onClick={openAdminLogin}
-            aria-label="Acceso administrador"
-            title="Acceso administrador"
-            className="grid size-7 place-items-center border border-cream/20"
-          >
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FCF2D999" strokeWidth="1.8" aria-hidden="true">
-              <path d="M12 3l7 3v5.5c0 4.3-2.9 8.1-7 9.5-4.1-1.4-7-5.2-7-9.5V6l7-3Z" />
-            </svg>
           </button>
           <button
             type="button"

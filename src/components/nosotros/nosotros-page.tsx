@@ -146,6 +146,7 @@ export function NosotrosPage() {
           <div className={"grid gap-[clamp(20px,4vw,64px)] border-t border-forest/20 pt-[clamp(30px,4vw,52px)] " + TEXT_COLS}>
             <div className="text-[10px] font-bold tracking-[.24em] text-orange uppercase">¿Qué somos?</div>
             <Reveal>
+              <p className="mb-3 text-[11px] font-bold tracking-[.18em] text-forest/70 uppercase">Marca 100% Costarricense</p>
               <p className="text-[clamp(24px,2.8vw,42px)] leading-[1.32] font-light text-pretty">
                 Funcionalidad <span className="font-semibold">bikewear</span> con actitud{" "}
                 <span className="font-semibold">streetwear</span>. Prendas versátiles, cómodas y con un estilo único, con
@@ -165,9 +166,11 @@ export function NosotrosPage() {
             <div
               role="img"
               aria-label="Rider de Perezoso saltando bajo los árboles"
-              className="h-[clamp(360px,62vw,880px)]"
-              style={{ background: "url(/img/jump-canopy.jpg) center bottom -59.4vw/100% auto no-repeat" }}
-            />
+              className="h-[clamp(360px,62vw,880px)] overflow-hidden"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/img/jump-canopy.jpg" alt="" className="h-full w-full object-cover object-[center_20%]" />
+            </div>
             <figcaption className="flex justify-between gap-4 border-b border-forest/20 px-[clamp(18px,4vw,64px)] py-3 text-[11px] leading-[1.5] font-medium text-forest/65">
               <span className="font-bold text-forest">Fig. 02</span>
               <span>Materiales agradables al movimiento, para el clima tropical y cualquier ocasión.</span>

@@ -66,7 +66,8 @@ export function ContactPage() {
     submitTimer.current = setTimeout(() => {
       setLoading(false);
       setSent(true);
-    }, 1100);
+      window.open(waSummary, "_blank", "noopener");
+    }, 600);
   }
 
   function reset() {

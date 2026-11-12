@@ -44,11 +44,11 @@ export function Hero() {
         playsInline
         disablePictureInPicture
         aria-label="Rider Perezoso en movimiento"
-        className="absolute -inset-[6%] h-[112%] w-[112%] object-cover [object-position:58%_42%] [filter:saturate(1.08)] [transform:translateZ(0)]"
+        className="absolute inset-0 h-full w-full object-cover [object-position:50%_42%] [filter:saturate(1.08)] [transform:translateZ(0)]"
       />
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(20,29,16,.9)_0%,rgba(20,29,16,.62)_26%,rgba(20,29,16,.14)_52%,rgba(20,29,16,0)_66%)]" />
 
-      <div className="pointer-events-none absolute bottom-[118px] left-[clamp(18px,3vw,48px)] max-w-[1040px]">
+      <div className="pointer-events-none absolute bottom-[clamp(90px,14vw,118px)] left-[clamp(18px,3vw,48px)] right-[clamp(18px,3vw,48px)] max-w-[1040px]">
         <h1 className="font-display text-[clamp(58px,11.5vw,176px)] leading-[.8] text-cream">
           Ni lentos
           <br />
