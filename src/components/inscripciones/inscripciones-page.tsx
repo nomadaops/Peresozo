@@ -65,6 +65,8 @@ export function InscripcionesPage() {
   const [biz, setBiz] = useState<Biz>(EMPTY);
   const [tried, setTried] = useState(false);
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
     const id = setInterval(() => setTick((t) => t + 1), 4200);
@@ -89,22 +91,32 @@ export function InscripcionesPage() {
     "\nCorreo: " + biz.email + "\nTeléfono: " + biz.phone + "\nTipo: " + biz.type + "\nFecha: " + (biz.date || "Por definir") +
     "\nPersonas: " + biz.people + (biz.notes ? "\nDetalles: " + biz.notes : "");
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (Object.values(er).some(Boolean)) {
       setTried(true);
       return;
     }
+    setLoading(true);
+    setSubmitError(null);
     try {
-      const raw = localStorage.getItem("pz_eventos_privados");
-      const list = raw ? JSON.parse(raw) : [];
-      list.unshift({ ...biz, createdAt: new Date().toISOString() });
-      localStorage.setItem("pz_eventos_privados", JSON.stringify(list));
-    } catch {
-      /* ignore */
+      const res = await fetch("/api/evento", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(biz),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error || "Error al enviar");
+      }
+      setSent(true);
+    } catch (err) {
+      setSubmitError(
+        err instanceof Error ? err.message : "No se pudo enviar. Intentá de nuevo.",
+      );
+    } finally {
+      setLoading(false);
     }
-    setSent(true);
-    window.open("https://wa.me/50683127667?text=" + encodeURIComponent(waMsg), "_blank", "noopener");
   };
 
   const reset = () => {
@@ -426,11 +438,18 @@ export function InscripcionesPage() {
                       style={{ borderColor: "#20291633" }}
                     />
                   </label>
+                  {submitError && (
+                    <div role="alert" className="border-l-[3px] border-[#C0392B] bg-[#C0392B]/10 px-3.5 py-3 text-[12.5px] font-semibold text-[#8E2A1E]">
+                      {submitError}
+                    </div>
+                  )}
                   <button
                     type="submit"
-                    className="inline-flex items-center gap-3 justify-self-start bg-orange px-[30px] py-[17px] text-[11px] font-extrabold tracking-[.2em] text-forest uppercase transition-colors hover:bg-cream"
+                    disabled={loading}
+                    className="inline-flex items-center gap-3 justify-self-start bg-orange px-[30px] py-[17px] text-[11px] font-extrabold tracking-[.2em] text-forest uppercase transition-colors hover:bg-cream disabled:opacity-60"
                   >
-                    Solicitar cotización <span className="text-[14px]">→</span>
+                    {loading && <span className="block size-3.5 animate-spin rounded-full border-2 border-forest/30 border-t-forest" />}
+                    {loading ? "Enviando…" : <>Solicitar cotización <span className="text-[14px]">→</span></>}
                   </button>
                 </form>
               </>

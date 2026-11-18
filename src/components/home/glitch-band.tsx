@@ -1,13 +1,13 @@
 function GlitchLine({ color, isoOpacity }: { color: string; isoOpacity: number }) {
   const isoSrc = color === "#FCF2D9" ? "/brand/isotype-orange.png" : "/brand/isotype-cream.png";
   return (
-    <span className="inline-flex items-center gap-[56px]" style={{ color }}>
-      ¿Listo para ser parte de la familia Perezoso?
+    <span className="inline-flex items-center gap-[1.2em]" style={{ color }}>
+      <span className="shrink-0">¿Listo para ser parte de la familia Perezoso?</span>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={isoSrc} alt="" className="mx-[18px] h-[.72em] w-auto flex-none" style={{ opacity: isoOpacity }} />
-      ¿Listo para ser parte de la familia Perezoso?
+      <img src={isoSrc} alt="" className="h-[.72em] w-[1.42em] shrink-0" style={{ opacity: isoOpacity }} />
+      <span className="shrink-0">¿Listo para ser parte de la familia Perezoso?</span>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={isoSrc} alt="" className="mx-[18px] h-[.72em] w-auto flex-none" style={{ opacity: isoOpacity }} />
+      <img src={isoSrc} alt="" className="h-[.72em] w-[1.42em] shrink-0" style={{ opacity: isoOpacity }} />
     </span>
   );
 }
@@ -32,18 +32,18 @@ export function GlitchBand() {
       />
 
       <div className="relative animate-[gJitter_6.5s_steps(1,end)_infinite] whitespace-nowrap">
-        <div className="inline-flex animate-[gSlideA_26s_linear_infinite] gap-[56px] font-display text-[clamp(28px,4.2vw,58px)] leading-[.9] text-cream">
+        <div className="inline-flex animate-[gSlideA_26s_linear_infinite] gap-[1.2em] font-display text-[clamp(28px,4.2vw,58px)] leading-[.9] text-cream">
           <GlitchLine color="#FCF2D9" isoOpacity={0.95} />
           <GlitchLine color="#FCF2D9" isoOpacity={0.95} />
         </div>
         <div className="pointer-events-none absolute inset-0 animate-[gSlice_6.5s_steps(1,end)_infinite] mix-blend-screen">
-          <div className="inline-flex animate-[gSlideA_26s_linear_infinite,gShiftR_6.5s_steps(1,end)_infinite] gap-[56px] font-display text-[clamp(28px,4.2vw,58px)] leading-[.9] text-[#F0402A]">
+          <div className="inline-flex animate-[gSlideA_26s_linear_infinite,gShiftR_6.5s_steps(1,end)_infinite] gap-[1.2em] font-display text-[clamp(28px,4.2vw,58px)] leading-[.9] text-[#F0402A]">
             <GlitchLine color="#F0402A" isoOpacity={0.85} />
             <GlitchLine color="#F0402A" isoOpacity={0.85} />
           </div>
         </div>
         <div className="pointer-events-none absolute inset-0 animate-[gSlice_6.5s_steps(1,end)_.18s_infinite] mix-blend-screen">
-          <div className="inline-flex animate-[gSlideA_26s_linear_infinite,gShiftC_6.5s_steps(1,end)_infinite] gap-[56px] font-display text-[clamp(28px,4.2vw,58px)] leading-[.9] text-teal">
+          <div className="inline-flex animate-[gSlideA_26s_linear_infinite,gShiftC_6.5s_steps(1,end)_infinite] gap-[1.2em] font-display text-[clamp(28px,4.2vw,58px)] leading-[.9] text-teal">
             <GlitchLine color="#08ACC3" isoOpacity={0.85} />
             <GlitchLine color="#08ACC3" isoOpacity={0.85} />
           </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { EventosPill, HamburgerButton, InkNav } from "@/components/shared/ink-nav";
 import { InkMobileMenu } from "@/components/shared/ink-mobile-menu";
 import { DELIVERIES, PRODUCTS, SIZES, TOPICS, WA_NUMBER, channels, money, type Topic } from "@/lib/contacto-data";
@@ -30,7 +30,7 @@ export function ContactPage() {
   const [touched, setTouched] = useState(false);
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
-  const submitTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const isOrder = topic === "Quiero hacer un pedido";
   const isInfo = topic === "Información sobre un producto";
@@ -55,19 +55,49 @@ export function ContactPage() {
     return e;
   }
 
-  function handleSubmit(ev: React.FormEvent) {
+  async function handleSubmit(ev: React.FormEvent) {
     ev.preventDefault();
     const errs = validate();
     setErrors(errs);
     setTouched(true);
     if (Object.keys(errs).length) return;
     setLoading(true);
-    clearTimeout(submitTimer.current);
-    submitTimer.current = setTimeout(() => {
-      setLoading(false);
+    setSubmitError(null);
+    try {
+      const ed = PRODUCTS.find((x) => x.id === edicion);
+      const dv = DELIVERIES.find((x) => x.id === envio);
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          topic,
+          nombre,
+          email,
+          tel,
+          provincia,
+          mensaje,
+          infoProducto,
+          edicion: ed?.label,
+          talla: ed?.oneSize ? "Única" : talla,
+          precio: ed ? money(ed.price) : undefined,
+          adelanto: ed ? money(ed.price / 2) : undefined,
+          envio: dv?.label,
+          ubicacion,
+          otro,
+        }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error || "Error al enviar");
+      }
       setSent(true);
-      window.open(waSummary, "_blank", "noopener");
-    }, 600);
+    } catch (err) {
+      setSubmitError(
+        err instanceof Error ? err.message : "No se pudo enviar. Intentá de nuevo.",
+      );
+    } finally {
+      setLoading(false);
+    }
   }
 
   function reset() {
@@ -538,6 +568,12 @@ export function ContactPage() {
                 {hasErrors && (
                   <div role="alert" className="mt-4.5 border-l-[3px] border-[#C0392B] bg-[#C0392B]/7 px-3.5 py-3 text-[12.5px] font-semibold text-[#8E2A1E]">
                     Revisá los campos marcados antes de enviar.
+                  </div>
+                )}
+
+                {submitError && (
+                  <div role="alert" className="mt-4.5 border-l-[3px] border-[#C0392B] bg-[#C0392B]/7 px-3.5 py-3 text-[12.5px] font-semibold text-[#8E2A1E]">
+                    {submitError}
                   </div>
                 )}
 
