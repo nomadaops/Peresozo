@@ -221,31 +221,33 @@
   }
 }
 
-* {
-  box-sizing: border-box;
-}
-body {
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
-}
-h1,
-h2,
-h3,
-h4 {
-  margin: 0;
-  font-weight: 400;
-}
-p {
-  margin: 0;
-}
-button {
-  font-family: inherit;
-  cursor: pointer;
-}
-img {
-  display: block;
-}
-::selection {
-  background: #f06a1d;
-  color: #141d10;
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 0;
+    font-weight: 400;
+  }
+  p {
+    margin: 0;
+  }
+  button {
+    font-family: inherit;
+    cursor: pointer;
+  }
+  img {
+    display: block;
+  }
+  ::selection {
+    background: #f06a1d;
+    color: #141d10;
+  }
 }
