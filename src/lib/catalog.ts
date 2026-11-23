@@ -78,7 +78,7 @@ export const FAQ: FaqItem[] = [
   {
     cat: "Prendas",
     q: "¿Qué ediciones de jersey hay?",
-    a: "El Jersey Dry-Fit viene en cuatro ediciones: Black/Gold, Wine, Green y Purple. Cada una en manga corta o manga larga.",
+    a: "El Jersey Dry-Fit viene en cuatro ediciones: Rainbow, Black/Gold, Burgundy y Green. Cada una en manga corta o manga larga.",
     facts: [
       { v: "₡22.000", k: "Manga corta" },
       { v: "₡25.000", k: "Manga larga" },
@@ -107,14 +107,14 @@ export const FAQ: FaqItem[] = [
 ];
 
 export const REVIEWS = [
-  { name: "Ney Badilla", product: "Jersey Dry-Fit · Black/Gold", when: "Hace 1 semana", rating: 5, text: "El jersey aguanta lluvia, barro y sol en la misma rodada. Se seca rapidísimo y el corte queda muy bien." },
-  { name: "Jose Solano", product: "Gorra Perezoso", when: "Hace 2 semanas", rating: 5, text: "El bordado está demasiado bien hecho. La uso todos los días, en la bici y fuera de ella." },
-  { name: "Anthony Calderon", product: "Jersey Dry-Fit · Green", when: "Hace 3 semanas", rating: 5, text: "Lo pedí bajo pedido y me mantuvieron al tanto todo el tiempo por WhatsApp. Llegó tal cual lo esperaba." },
-  { name: "Denis Garcia", product: "Jersey Dry-Fit · Wine", when: "Hace 1 mes", rating: 5, text: "Excelente calidad para el precio. Se nota que lo diseñan personas que de verdad ruedan." },
-  { name: "Julián Fernández", product: "Jersey Dry-Fit · Purple", when: "Hace 1 mes", rating: 5, text: "La manga larga es perfecta para el trail en la mañana. Cómodo, liviano y con mucho estilo." },
-  { name: "Victor Villalba", product: "Camiseta Box Logo", when: "Hace 2 meses", rating: 5, text: "Buena tela y buen corte. Me gusta que sea una marca tica con identidad propia." },
-  { name: "Bernardo Solano", product: "Jersey Dry-Fit · Black/Gold", when: "Hace 2 meses", rating: 5, text: "Aparté con el 15% y lo retiré con calma. Muy buena atención de principio a fin." },
-  { name: "Fernando Anchía", product: "Jersey Dry-Fit · Green", when: "Hace 3 meses", rating: 5, text: "Ya es mi segundo jersey. Resiste las caídas y los lavados sin perder color." },
+  { name: "Ney Badilla", product: "NBD Rainbow Long Sleeve", when: "Hace 1 semana", rating: 5, text: "El jersey aguanta lluvia, barro y sol en la misma rodada. Se seca rapidísimo y el corte queda muy bien." },
+  { name: "Jose Solano", product: "NBD Snapback", when: "Hace 2 semanas", rating: 5, text: "El bordado está demasiado bien hecho. La uso todos los días, en la bici y fuera de ella." },
+  { name: "Anthony Calderon", product: "NBD Green Short Sleeve", when: "Hace 3 semanas", rating: 5, text: "Lo pedí bajo pedido y me mantuvieron al tanto todo el tiempo por WhatsApp. Llegó tal cual lo esperaba." },
+  { name: "Denis Garcia", product: "NBD Burgundy Short Sleeve", when: "Hace 1 mes", rating: 5, text: "Excelente calidad para el precio. Se nota que lo diseñan personas que de verdad ruedan." },
+  { name: "Julián Fernández", product: "NBD Rainbow Short Sleeve", when: "Hace 1 mes", rating: 5, text: "La manga larga es perfecta para el trail en la mañana. Cómodo, liviano y con mucho estilo." },
+  { name: "Victor Villalba", product: "Signature Tee White", when: "Hace 2 meses", rating: 5, text: "Buena tela y buen corte. Me gusta que sea una marca tica con identidad propia." },
+  { name: "Bernardo Solano", product: "NBD Black/Gold Long Sleeve", when: "Hace 2 meses", rating: 5, text: "Aparté con el 15% y lo retiré con calma. Muy buena atención de principio a fin." },
+  { name: "Fernando Anchía", product: "NBD Green Short Sleeve", when: "Hace 3 meses", rating: 5, text: "Ya es mi segundo jersey. Resiste las caídas y los lavados sin perder color." },
 ];
 
 export const INVENTORY: InventoryItem[] = [

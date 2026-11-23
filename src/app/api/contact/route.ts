@@ -2,7 +2,8 @@ import { Resend } from "resend";
 
 export const dynamic = "force-dynamic";
 
-const TO = "theperezosocompanycr@gmail.com";
+const TO = process.env.RESEND_TO || "theperezosocompanycr@gmail.com";
+const FROM = process.env.RESEND_FROM || "Perezoso Web <onboarding@resend.dev>";
 
 function getResend() {
   return new Resend(process.env.RESEND_API_KEY);
@@ -81,6 +82,13 @@ function buildHtml(b: Body): string {
 
 export async function POST(request: Request) {
   try {
+    if (!process.env.RESEND_API_KEY) {
+      return Response.json(
+        { error: "El servicio de correo no está configurado." },
+        { status: 503 },
+      );
+    }
+
     const body: Body = await request.json();
 
     const err = validate(body);
@@ -96,7 +104,7 @@ export async function POST(request: Request) {
     const subject = `[Web] ${subjectMap[body.topic] || body.topic} — ${body.nombre}`;
 
     await getResend().emails.send({
-      from: "Perezoso Web <onboarding@resend.dev>",
+      from: FROM,
       to: TO,
       replyTo: body.email,
       subject,

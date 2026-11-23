@@ -84,7 +84,7 @@ type MarketContextValue = {
   orderSent: boolean;
   openOrderForm: () => void;
   closeOrderForm: () => void;
-  submitOrder: (name: string, address: string, phone: string) => void;
+  submitOrder: (name: string, email: string, address: string, phone: string) => Promise<boolean>;
 
   waPlain: string;
   waCheckout: string;
@@ -263,19 +263,52 @@ export function MarketplaceProvider({ children }: { children: React.ReactNode })
   const waMsg = "Hola, quiero realizar este pedido en Perezoso:\n\n" + waLines + "\n\nTotal: " + money(subtotal);
 
   const submitOrder = useCallback(
-    (name: string, address: string, phone: string) => {
+    async (name: string, email: string, address: string, phone: string) => {
+      const items = lines
+        .map((l) => l.p.name + " · Talla " + l.size + " × " + l.qty)
+        .join(", ");
+
+      try {
+        const res = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            topic: "Quiero hacer un pedido",
+            nombre: name,
+            email,
+            tel: phone,
+            provincia: address,
+            ubicacion: address,
+            mensaje:
+              "Pedido desde el carrito:\n" +
+              lines
+                .map(
+                  (l) =>
+                    "• " + l.p.name + "\n  Talla: " + l.size + "\n  Cantidad: " + l.qty + "\n  Precio: " + money(l.p.price * l.qty)
+                )
+                .join("\n") +
+              "\n\nSubtotal: " + money(subtotal),
+          }),
+        });
+
+        if (!res.ok) return false;
+      } catch {
+        return false;
+      }
+
       addManualOrder({
         id: "#" + Math.floor(1000 + Math.random() * 9000),
         customer: name,
         phone,
         address,
-        items: lines.map((l) => l.p.name + " · Talla " + l.size + " × " + l.qty).join(", ") || "Sin productos en carrito",
+        items: items || "Sin productos en carrito",
         total: subtotal,
         date: new Date().toLocaleDateString("es-CR", { day: "2-digit", month: "short", year: "numeric" }),
         status: "Pago pendiente",
       });
       persist([]);
       setOrderSent(true);
+      return true;
     },
     [lines, subtotal, persist]
   );
