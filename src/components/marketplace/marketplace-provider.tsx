@@ -84,7 +84,7 @@ type MarketContextValue = {
   orderSent: boolean;
   openOrderForm: () => void;
   closeOrderForm: () => void;
-  submitOrder: (name: string, address: string, phone: string) => Promise<void>;
+  submitOrder: (name: string, email: string, address: string, phone: string) => Promise<boolean>;
 
   waPlain: string;
   waCheckout: string;
@@ -263,33 +263,42 @@ export function MarketplaceProvider({ children }: { children: React.ReactNode })
   const waMsg = "Hola, quiero realizar este pedido en Perezoso:\n\n" + waLines + "\n\nTotal: " + money(subtotal);
 
   const submitOrder = useCallback(
-    async (name: string, address: string, phone: string) => {
+    async (name: string, email: string, address: string, phone: string) => {
+      const items = lines
+        .map((l) => l.p.name + " · Talla " + l.size + " × " + l.qty)
+        .join(", ");
+
       try {
-        const res = await fetch("/api/order", {
+        const res = await fetch("/api/contact", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            name,
-            phone,
-            address,
-            items: lines.map((l) => ({
-              name: l.p.name,
-              size: l.size,
-              qty: l.qty,
-              line: money(l.p.price * l.qty),
-            })),
-            total: money(subtotal),
+            topic: "Quiero hacer un pedido",
+            nombre: name,
+            email,
+            tel: phone,
+            provincia: address,
+            ubicacion: address,
+            mensaje:
+              "Pedido desde el carrito:\n" +
+              lines
+                .map(
+                  (l) =>
+                    "• " + l.p.name + "\n  Talla: " + l.size + "\n  Cantidad: " + l.qty + "\n  Precio: " + money(l.p.price * l.qty)
+                )
+                .join("\n") +
+              "\n\nSubtotal: " + money(subtotal),
           }),
         });
-        if (!res.ok) {
-          const data = await res.json().catch(() => null);
-          console.error("Order email failed:", data?.error || res.statusText);
-        }
-      } catch (err) {
-        console.error("Order email failed:", err);
+
+        if (!res.ok) return false;
+      } catch {
+        return false;
       }
+
       persist([]);
       setOrderSent(true);
+      return true;
     },
     [lines, subtotal, persist]
   );

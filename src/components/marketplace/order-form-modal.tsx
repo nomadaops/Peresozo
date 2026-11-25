@@ -6,16 +6,21 @@ import { useMarket } from "./marketplace-provider";
 export function MarketOrderFormModal() {
   const { orderFormOpen, orderSent, closeOrderForm, submitOrder, subtotalLabel } = useMarket();
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   if (!orderFormOpen) return null;
 
   const handleClose = () => {
     closeOrderForm();
     setName("");
+    setEmail("");
     setAddress("");
     setPhone("");
+    setSubmitError("");
   };
 
   return (
@@ -56,9 +61,13 @@ export function MarketOrderFormModal() {
             </div>
             <h2 className="mb-5 font-display text-[32px] leading-none">Hacer pedido</h2>
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
-                submitOrder(name, address, phone);
+                setSubmitting(true);
+                setSubmitError("");
+                const sent = await submitOrder(name, email, address, phone);
+                setSubmitting(false);
+                if (!sent) setSubmitError("No se pudo enviar el pedido por correo. Intentá de nuevo.");
               }}
             >
               <label className="mb-1.5 block text-[10px] font-bold tracking-[.16em] uppercase">
@@ -70,6 +79,17 @@ export function MarketOrderFormModal() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Nombre y apellido"
+                className="mb-3.5 w-full border border-ink/14 bg-white px-3.5 py-3.5 text-[13px] font-medium text-ink"
+              />
+              <label className="mb-1.5 block text-[10px] font-bold tracking-[.16em] uppercase">
+                Correo electrónico *
+              </label>
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="correo@ejemplo.com"
                 className="mb-3.5 w-full border border-ink/14 bg-white px-3.5 py-3.5 text-[13px] font-medium text-ink"
               />
               <label className="mb-1.5 block text-[10px] font-bold tracking-[.16em] uppercase">Dirección *</label>
@@ -96,10 +116,14 @@ export function MarketOrderFormModal() {
               </div>
               <button
                 type="submit"
+                disabled={submitting}
                 className="w-full bg-ink py-[15px] text-[11px] font-extrabold tracking-[.2em] text-cream uppercase"
               >
-                Confirmar pedido
+                {submitting ? "Enviando..." : "Confirmar pedido"}
               </button>
+              {submitError && (
+                <p className="mt-3 text-center text-[12px] text-red-700">{submitError}</p>
+              )}
             </form>
           </>
         )}
