@@ -19,7 +19,7 @@ import {
   type MarketProduct,
 } from "@/lib/marketplace-data";
 import { money } from "@/lib/catalog";
-import { addManualOrder, loadCart, saveCart } from "@/lib/storage";
+import { loadCart, saveCart } from "@/lib/storage";
 import type { CartLine } from "@/lib/types";
 
 export type MarketRow = {
@@ -84,7 +84,7 @@ type MarketContextValue = {
   orderSent: boolean;
   openOrderForm: () => void;
   closeOrderForm: () => void;
-  submitOrder: (name: string, address: string, phone: string) => void;
+  submitOrder: (name: string, address: string, phone: string) => Promise<void>;
 
   waPlain: string;
   waCheckout: string;
@@ -263,17 +263,31 @@ export function MarketplaceProvider({ children }: { children: React.ReactNode })
   const waMsg = "Hola, quiero realizar este pedido en Perezoso:\n\n" + waLines + "\n\nTotal: " + money(subtotal);
 
   const submitOrder = useCallback(
-    (name: string, address: string, phone: string) => {
-      addManualOrder({
-        id: "#" + Math.floor(1000 + Math.random() * 9000),
-        customer: name,
-        phone,
-        address,
-        items: lines.map((l) => l.p.name + " · Talla " + l.size + " × " + l.qty).join(", ") || "Sin productos en carrito",
-        total: subtotal,
-        date: new Date().toLocaleDateString("es-CR", { day: "2-digit", month: "short", year: "numeric" }),
-        status: "Pago pendiente",
-      });
+    async (name: string, address: string, phone: string) => {
+      try {
+        const res = await fetch("/api/order", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name,
+            phone,
+            address,
+            items: lines.map((l) => ({
+              name: l.p.name,
+              size: l.size,
+              qty: l.qty,
+              line: money(l.p.price * l.qty),
+            })),
+            total: money(subtotal),
+          }),
+        });
+        if (!res.ok) {
+          const data = await res.json().catch(() => null);
+          console.error("Order email failed:", data?.error || res.statusText);
+        }
+      } catch (err) {
+        console.error("Order email failed:", err);
+      }
       persist([]);
       setOrderSent(true);
     },
